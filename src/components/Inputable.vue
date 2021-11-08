@@ -1,10 +1,11 @@
 <template>
-  <div class="element">
-    <label v-if="label" :for="field">{{ label }}</label>
+  <div class="col">
+    <label v-if="label" :for="field" class="form-label">{{ label }}</label>
     <input
       v-bind="$props"
       :id="field"
       :name="field"
+      class="form-control"
       @input="$emit('input', $event.target.value)"
     />
     <slot></slot>
@@ -34,9 +35,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.element {
-  display: flex;
-  flex-direction: column;
-}
-</style>
+<style scoped></style>

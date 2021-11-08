@@ -1,8 +1,8 @@
 <template>
   <form class="form">
-    <fieldset>
-      <legend>Личные данные</legend>
-      <div class="row">
+    <fieldset class="mb-5">
+      <legend class="mb-4">Личные данные</legend>
+      <div class="row mb-3">
         <Inputable
           v-bind="fieldData[field.LAST_NAME]"
           v-model="formData[field.LAST_NAME]"
@@ -18,32 +18,36 @@
         />
       </div>
 
-      <Inputable
-        v-bind="fieldData[field.BIRTH_DATE]"
-        v-model="formData[field.BIRTH_DATE]"
-      />
+      <div class="row mb-3">
+        <Inputable
+          v-bind="fieldData[field.BIRTH_DATE]"
+          v-model="formData[field.BIRTH_DATE]"
+        />
 
-      <Inputable
-        v-bind="fieldData[field.EMAIL]"
-        v-model="formData[field.EMAIL]"
-      />
+        <Inputable
+          v-bind="fieldData[field.EMAIL]"
+          v-model="formData[field.EMAIL]"
+        />
+      </div>
 
       <Checkable v-bind="fieldData[field.SEX]" v-model="formData[field.SEX]" />
     </fieldset>
 
-    <fieldset>
-      <legend>Паспортные данные</legend>
+    <fieldset class="mb-5">
+      <legend class="mb-4">Паспортные данные</legend>
 
-      <Inputable
-        v-bind="fieldData[field.CITIZENSHIP]"
-        v-model="formData[field.CITIZENSHIP]"
-      >
-        <datalist id="citizenships">
-          <option v-for="item in citizenships" :value="item" :key="item" />
-        </datalist>
-      </Inputable>
+      <div class="row mb-3">
+        <Inputable
+          v-bind="fieldData[field.CITIZENSHIP]"
+          v-model="formData[field.CITIZENSHIP]"
+        >
+          <datalist id="citizenships">
+            <option v-for="item in citizenships" :value="item" :key="item" />
+          </datalist>
+        </Inputable>
+      </div>
 
-      <div v-if="isRussian" class="row">
+      <div v-if="isRussian" class="row mb-3">
         <Inputable
           v-bind="fieldData[field.PASSPORT_SERIES]"
           v-model="formData[field.PASSPORT_SERIES]"
@@ -59,7 +63,7 @@
       </div>
 
       <div v-else-if="isForeign" class="foreign">
-        <div class="row">
+        <div class="row mb-1">
           <Inputable
             v-bind="fieldData[field.FOREIGN_LAST_NAME]"
             v-model="formData[field.FOREIGN_LAST_NAME]"
@@ -69,10 +73,10 @@
             v-model="formData[field.FOREIGN_FIRST_NAME]"
           />
         </div>
-        <span
-          >Иностранцы заполняют литинскими буквами. Например, Ivanov Ivan
+        <span class="d-block mb-3 small-text">
+          Иностранцы заполняют литинскими буквами. Например, Ivanov Ivan
         </span>
-        <div class="row">
+        <div class="row mb-3">
           <Inputable
             v-bind="fieldData[field.FOREIGN_PASSPORT_NUMBER]"
             v-model="formData[field.FOREIGN_PASSPORT_NUMBER]"
@@ -112,7 +116,7 @@
         />
       </div>
     </fieldset>
-    <button type="submit">Отправить</button>
+    <button type="submit" class="btn btn-primary">Отправить</button>
   </form>
 </template>
 
@@ -186,9 +190,9 @@ export default {
 
 <style scoped>
 .form {
-  max-width: 400px;
+  max-width: 700px;
 }
-.row {
-  display: flex;
+.small-text {
+  font-size: 14px;
 }
 </style>

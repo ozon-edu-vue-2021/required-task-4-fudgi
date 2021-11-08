@@ -1,15 +1,24 @@
 <template>
   <div>
-    <p v-if="label">{{ label }}</p>
-    <label v-for="option in options" :key="option.value">
+    <p v-if="label" class="form-label">{{ label }}</p>
+
+    <div
+      v-for="option in options"
+      :key="option.value"
+      class="form-check form-check-inline"
+    >
+      <label class="form-check-label" :for="option.value">
+        {{ option.text }}
+      </label>
       <input
         :type="type"
         :value="option.value"
         :name="field"
+        :id="option.value"
+        class="form-check-input"
         @input="$emit('input', $event.target.value)"
       />
-      {{ option.text }}
-    </label>
+    </div>
   </div>
 </template>
 
