@@ -127,9 +127,9 @@ import Inputable from "@/components/Inputable";
 import Checkable from "@/components/Checkable";
 import citizenshipData from "@/assets/data/citizenships.json";
 import passportTypesData from "@/assets/data/passport-types.json";
-import { field, fieldData } from "@/assets/data/field-config.js";
-const RUSSIA = "Russia";
-const YES = "yes";
+import { field, fieldData, initFormData } from "@/assets/data/field-config.js";
+const CITIZENSHIP_RUSSIA = "Russia";
+const CHANGE_NAME_YES = "yes";
 
 const citizenships = Array.from(
   new Set(citizenshipData.map(({ nationality }) => nationality))
@@ -144,29 +144,7 @@ export default {
   },
   data() {
     return {
-      formData: {
-        [field.LAST_NAME]: "",
-        [field.FIRST_NAME]: "",
-        [field.SECOND_NAME]: "",
-        [field.BIRTH_DATE]: null,
-        [field.EMAIL]: "",
-        [field.SEX]: null,
-        [field.CITIZENSHIP]: null,
-        //RUSSIAN
-        [field.PASSPORT_SERIES]: "",
-        [field.PASSPORT_NUMBER]: null,
-        [field.PASSPORT_DATE]: "",
-        //NOT_RUSSIAN
-        [field.FOREIGN_LAST_NAME]: "",
-        [field.FOREIGN_FIRST_NAME]: "",
-        [field.FOREIGN_PASSPORT_NUMBER]: "",
-        [field.FOREIGN_COUNTRY_ORIGIN]: "",
-        [field.FOREIGN_PASSPORT_TYPE]: "",
-        //ADDITIONAL
-        [field.LAST_NAME_CHANGED]: "",
-        [field.PREVIOUS_LAST_NAME]: "",
-        [field.PREVIOUS_FIRST_NAME]: "",
-      },
+      formData: initFormData,
       citizenships,
       passportTypes,
       fieldData,
@@ -181,16 +159,16 @@ export default {
   },
   computed: {
     isRussian() {
-      return this.formData[field.CITIZENSHIP] === RUSSIA;
+      return this.formData[field.CITIZENSHIP] === CITIZENSHIP_RUSSIA;
     },
     isForeign() {
       return (
         this.formData[field.CITIZENSHIP] &&
-        this.formData[field.CITIZENSHIP] !== RUSSIA
+        this.formData[field.CITIZENSHIP] !== CITIZENSHIP_RUSSIA
       );
     },
     isLastNameChanged() {
-      return this.formData[field.LAST_NAME_CHANGED] === YES;
+      return this.formData[field.LAST_NAME_CHANGED] === CHANGE_NAME_YES;
     },
   },
 };

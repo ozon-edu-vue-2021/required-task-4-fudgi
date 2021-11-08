@@ -132,4 +132,28 @@ const fieldData = {
   },
 };
 
-export { field, fieldData };
+const initFormData = {
+  [field.LAST_NAME]: "",
+  [field.FIRST_NAME]: "",
+  [field.SECOND_NAME]: "",
+  [field.BIRTH_DATE]: "",
+  [field.EMAIL]: "",
+  [field.SEX]: "",
+  [field.CITIZENSHIP]: "",
+  //RUSSIAN
+  [field.PASSPORT_SERIES]: "",
+  [field.PASSPORT_NUMBER]: "",
+  [field.PASSPORT_DATE]: "",
+  //NOT_RUSSIAN
+  [field.FOREIGN_LAST_NAME]: "",
+  [field.FOREIGN_FIRST_NAME]: "",
+  [field.FOREIGN_PASSPORT_NUMBER]: "",
+  [field.FOREIGN_COUNTRY_ORIGIN]: "",
+  [field.FOREIGN_PASSPORT_TYPE]: "",
+  //ADDITIONAL
+  [field.LAST_NAME_CHANGED]: "",
+  [field.PREVIOUS_LAST_NAME]: "",
+  [field.PREVIOUS_FIRST_NAME]: "",
+};
+
+export { field, fieldData, initFormData };
