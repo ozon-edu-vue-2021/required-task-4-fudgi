@@ -116,7 +116,9 @@
         />
       </div>
     </fieldset>
-    <button type="submit" class="btn btn-primary">Отправить</button>
+    <button type="submit" class="btn btn-primary" @click="sendForm">
+      Отправить
+    </button>
   </form>
 </template>
 
@@ -127,6 +129,7 @@ import citizenshipData from "@/assets/data/citizenships.json";
 import passportTypesData from "@/assets/data/passport-types.json";
 import { field, fieldData } from "@/assets/data/field-config.js";
 const RUSSIA = "Russia";
+const YES = "yes";
 
 const citizenships = Array.from(
   new Set(citizenshipData.map(({ nationality }) => nationality))
@@ -170,7 +173,12 @@ export default {
       field,
     };
   },
-  methods: {},
+  methods: {
+    sendForm(e) {
+      e.preventDefault();
+      console.log(JSON.stringify(this.formData, null, 4));
+    },
+  },
   computed: {
     isRussian() {
       return this.formData[field.CITIZENSHIP] === RUSSIA;
@@ -182,7 +190,7 @@ export default {
       );
     },
     isLastNameChanged() {
-      return this.formData[field.LAST_NAME_CHANGED] === "yes";
+      return this.formData[field.LAST_NAME_CHANGED] === YES;
     },
   },
 };
