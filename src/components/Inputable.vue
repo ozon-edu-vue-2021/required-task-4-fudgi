@@ -28,8 +28,20 @@ export default {
       default: () => "",
     },
     list: {
-      type: String,
-      default: () => "",
+      type: [String, Boolean],
+      default: () => false,
+    },
+    pattern: {
+      type: [String, Boolean],
+      default: () => false,
+    },
+    max: {
+      type: [String, Boolean],
+      default: () => false,
+    },
+    required: {
+      type: Boolean,
+      default: () => false,
     },
   },
 };

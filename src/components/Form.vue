@@ -1,6 +1,6 @@
 <template>
-  <form class="form">
-    <fieldset class="mb-5">
+  <form :class="formClasses" ref="form">
+    <fieldset class="mb-4">
       <legend class="mb-4">Личные данные</legend>
       <div class="row mb-3">
         <Inputable
@@ -149,11 +149,18 @@ export default {
       passportTypes,
       fieldData,
       field,
+      isValidForm: true,
     };
   },
   methods: {
-    sendForm(e) {
-      e.preventDefault();
+    sendForm(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!this.$refs.form.checkValidity()) this.isValidForm = false;
+      else this.isValidForm = true;
+      console.log(this.isValidForm);
+
       console.log(JSON.stringify(this.formData, null, 4));
     },
   },
@@ -169,6 +176,9 @@ export default {
     },
     isLastNameChanged() {
       return this.formData[field.LAST_NAME_CHANGED] === CHANGE_NAME_YES;
+    },
+    formClasses() {
+      return ["form", { "was-validated": !this.isValidForm }];
     },
   },
 };

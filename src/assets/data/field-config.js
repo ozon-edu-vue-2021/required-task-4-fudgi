@@ -1,3 +1,6 @@
+import getFormatedCurrentDate from "../../utils/getFormatedCurrentDate";
+import * as regexp from "./regex";
+
 const field = {
   LAST_NAME: "lastName",
   FIRST_NAME: "firstName",
@@ -10,7 +13,7 @@ const field = {
   PASSPORT_SERIES: "passport_series",
   PASSPORT_NUMBER: "passport_number",
   PASSPORT_DATE: "passport_date",
-  //NOT_RUSSIAN
+  //FOREIGN
   FOREIGN_LAST_NAME: "foreignLastName",
   FOREIGN_FIRST_NAME: "foreignFirstName",
   FOREIGN_PASSPORT_NUMBER: "foreignPassportNumber",
@@ -22,30 +25,50 @@ const field = {
   PREVIOUS_FIRST_NAME: "previousFirstName",
 };
 
+const russianTextField = {
+  type: "text",
+  required: true,
+  pattern: regexp.RUSSIAN_LETTERS_PATTERN,
+};
+
+const foreignTextField = {
+  type: "text",
+  required: true,
+  pattern: regexp.FOREIGN_LETTER_PATTERN,
+};
+
+const dateField = {
+  type: "date",
+  required: true,
+  max: getFormatedCurrentDate(),
+};
+
 const fieldData = {
   [field.LAST_NAME]: {
-    type: "text",
+    ...russianTextField,
     label: "Фамилия",
     field: field.LAST_NAME,
   },
   [field.FIRST_NAME]: {
-    type: "text",
+    ...russianTextField,
     label: "Имя",
     field: field.FIRST_NAME,
   },
   [field.SECOND_NAME]: {
-    type: "text",
+    ...russianTextField,
     label: "Отчество",
     field: field.SECOND_NAME,
   },
   [field.BIRTH_DATE]: {
-    type: "date",
+    ...dateField,
     label: "Дата рождения",
     field: field.BIRTH_DATE,
   },
   [field.EMAIL]: {
     type: "email",
     label: "E-mail",
+    required: true,
+    pattern: regexp.EMAIL_PATTERN,
     field: field.EMAIL,
   },
   [field.SEX]: {
@@ -61,45 +84,53 @@ const fieldData = {
     type: "",
     label: "Гражданство",
     list: "citizenships",
+    required: true,
     field: field.CITIZENSHIP,
     options: [],
   },
   //RUSSIAN
   [field.PASSPORT_SERIES]: {
-    type: "number",
+    type: "text",
     label: "Серия паспорта",
+    required: true,
+    pattern: regexp.PASSPORT_SERIES_PATTERN,
     field: field.PASSPORT_SERIES,
   },
   [field.PASSPORT_NUMBER]: {
-    type: "number",
+    type: "text",
     label: "Номер паспорта",
+    required: true,
+    pattern: regexp.RUSSIAN_PASSPORT_NUMBER_PATTERN,
     field: field.PASSPORT_NUMBER,
   },
   [field.PASSPORT_DATE]: {
-    type: "date",
+    ...dateField,
     label: "Дата выдачи",
     field: field.PASSPORT_DATE,
   },
-  //NOT_RUSSIAN
+  //FOREIGN
   [field.FOREIGN_LAST_NAME]: {
-    type: "text",
-    label: "Фамилия на латиниц",
+    ...foreignTextField,
+    label: "Фамилия на латинице",
     field: field.FOREIGN_LAST_NAME,
   },
   [field.FOREIGN_FIRST_NAME]: {
-    type: "text",
+    ...foreignTextField,
     label: "Имя на латинице",
     field: field.FOREIGN_FIRST_NAME,
   },
   [field.FOREIGN_PASSPORT_NUMBER]: {
     type: "number",
     label: "Номер паспорта",
+    required: true,
+    pattern: regexp.FOREIGN_PASSPORT_NUMBER_PATTERN,
     field: field.FOREIGN_PASSPORT_NUMBER,
   },
   [field.FOREIGN_COUNTRY_ORIGIN]: {
     type: "",
     label: "Страна выдачи",
     list: "countries",
+    required: true,
     field: field.FOREIGN_COUNTRY_ORIGIN,
     options: [],
   },
@@ -107,6 +138,7 @@ const fieldData = {
     type: "",
     label: "Тип паспорта",
     list: "passportTypes",
+    required: true,
     field: field.FOREIGN_PASSPORT_TYPE,
     options: [],
   },
@@ -121,39 +153,20 @@ const fieldData = {
     ],
   },
   [field.PREVIOUS_LAST_NAME]: {
-    type: "text",
+    ...russianTextField,
     label: "Предыдущая фамилия",
     field: field.PREVIOUS_LAST_NAME,
   },
   [field.PREVIOUS_FIRST_NAME]: {
-    type: "text",
+    ...russianTextField,
     label: "Предыдущее имя",
     field: field.PREVIOUS_FIRST_NAME,
   },
 };
 
-const initFormData = {
-  [field.LAST_NAME]: "",
-  [field.FIRST_NAME]: "",
-  [field.SECOND_NAME]: "",
-  [field.BIRTH_DATE]: "",
-  [field.EMAIL]: "",
-  [field.SEX]: "",
-  [field.CITIZENSHIP]: "",
-  //RUSSIAN
-  [field.PASSPORT_SERIES]: "",
-  [field.PASSPORT_NUMBER]: "",
-  [field.PASSPORT_DATE]: "",
-  //NOT_RUSSIAN
-  [field.FOREIGN_LAST_NAME]: "",
-  [field.FOREIGN_FIRST_NAME]: "",
-  [field.FOREIGN_PASSPORT_NUMBER]: "",
-  [field.FOREIGN_COUNTRY_ORIGIN]: "",
-  [field.FOREIGN_PASSPORT_TYPE]: "",
-  //ADDITIONAL
-  [field.LAST_NAME_CHANGED]: "",
-  [field.PREVIOUS_LAST_NAME]: "",
-  [field.PREVIOUS_FIRST_NAME]: "",
-};
+const initFormData = Object.keys(fieldData).reduce((acc, key) => {
+  acc[key] = "";
+  return acc;
+}, {});
 
 export { field, fieldData, initFormData };
