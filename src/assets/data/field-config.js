@@ -1,4 +1,4 @@
-import getFormatedCurrentDate from "../../utils/getFormatedCurrentDate";
+import getFormatedCurrentDate from "@/utils/getFormatedCurrentDate";
 import * as regexp from "./regex";
 
 const field = {

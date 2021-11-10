@@ -12,7 +12,7 @@
         class="form-control input"
         autocomplete="off"
         @focus="handleOpen"
-        @input="handleChange"
+        @input="debouncedChange"
       />
       <button
         v-if="searchText.length"
@@ -38,6 +38,7 @@
 
 <script>
 import ClickOutside from "vue-click-outside";
+import debounce from "@/helpers/debounce";
 
 export default {
   directives: {
@@ -52,8 +53,9 @@ export default {
   computed: {
     filteredOptions() {
       if (!this.searchText) return this.options;
+      const loweredSearchText = this.searchText.toLowerCase();
       return this.options.filter((option) =>
-        option.startsWith(this.searchText)
+        option.toLowerCase().startsWith(loweredSearchText)
       );
     },
   },
@@ -80,6 +82,9 @@ export default {
       this.searchText = "";
       this.$emit("input", "");
     },
+  },
+  created() {
+    this.debouncedChange = debounce(this.handleChange, 1000);
   },
   props: {
     label: {
