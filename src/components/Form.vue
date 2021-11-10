@@ -37,14 +37,11 @@
       <legend class="mb-4">Паспортные данные</legend>
 
       <div class="row mb-3">
-        <Inputable
+        <Selectable
           v-bind="fieldData[field.CITIZENSHIP]"
           v-model="formData[field.CITIZENSHIP]"
-        >
-          <datalist id="citizenships">
-            <option v-for="item in citizenships" :value="item" :key="item" />
-          </datalist>
-        </Inputable>
+          :options="citizenships"
+        />
       </div>
 
       <div v-if="isRussian" class="row mb-3">
@@ -81,29 +78,25 @@
             v-bind="fieldData[field.FOREIGN_PASSPORT_NUMBER]"
             v-model="formData[field.FOREIGN_PASSPORT_NUMBER]"
           />
-          <Inputable
+          <Selectable
             v-bind="fieldData[field.FOREIGN_COUNTRY_ORIGIN]"
             v-model="formData[field.FOREIGN_COUNTRY_ORIGIN]"
-          >
-            <datalist id="countries">
-              <option v-for="item in citizenships" :value="item" :key="item" />
-            </datalist>
-          </Inputable>
-          <Inputable
+            :options="citizenships"
+          />
+          <Selectable
             v-bind="fieldData[field.FOREIGN_PASSPORT_TYPE]"
             v-model="formData[field.FOREIGN_PASSPORT_TYPE]"
-          >
-            <datalist id="passportTypes">
-              <option v-for="item in passportTypes" :value="item" :key="item" />
-            </datalist>
-          </Inputable>
+            :options="passportTypes"
+          />
         </div>
       </div>
 
-      <Checkable
-        v-bind="fieldData[field.LAST_NAME_CHANGED]"
-        v-model="formData[field.LAST_NAME_CHANGED]"
-      />
+      <div class="row mb-3">
+        <Checkable
+          v-bind="fieldData[field.LAST_NAME_CHANGED]"
+          v-model="formData[field.LAST_NAME_CHANGED]"
+        />
+      </div>
 
       <div v-if="isLastNameChanged" class="row">
         <Inputable
@@ -125,6 +118,7 @@
 <script>
 import Inputable from "@/components/Inputable";
 import Checkable from "@/components/Checkable";
+import Selectable from "@/components/Selectable";
 import citizenshipData from "@/assets/data/citizenships.json";
 import passportTypesData from "@/assets/data/passport-types.json";
 import { field, fieldData, initFormData } from "@/assets/data/field-config.js";
@@ -141,6 +135,7 @@ export default {
   components: {
     Inputable,
     Checkable,
+    Selectable,
   },
   data() {
     return {
@@ -155,7 +150,6 @@ export default {
   methods: {
     sendForm(event) {
       event.preventDefault();
-      event.stopPropagation();
 
       if (!this.$refs.form.checkValidity()) this.isValidForm = false;
       else this.isValidForm = true;

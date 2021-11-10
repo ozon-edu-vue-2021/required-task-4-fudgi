@@ -15,6 +15,7 @@
         :value="option.value"
         :name="field"
         :id="option.value"
+        :required="required"
         class="form-check-input"
         @input="$emit('input', $event.target.value)"
       />
@@ -33,13 +34,17 @@ export default {
       type: String,
       default: () => "",
     },
-    options: {
-      type: Array,
-      default: () => [],
-    },
     type: {
       type: String,
       default: () => "checkbox",
+    },
+    required: {
+      type: Boolean,
+      default: () => false,
+    },
+    options: {
+      type: Array,
+      default: () => [],
     },
   },
 };

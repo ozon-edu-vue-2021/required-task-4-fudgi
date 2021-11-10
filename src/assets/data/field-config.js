@@ -75,6 +75,7 @@ const fieldData = {
     type: "radio",
     label: "Пол",
     field: field.SEX,
+    required: true,
     options: [
       { value: "male", text: "Мужской" },
       { value: "female", text: "Женский" },
@@ -83,10 +84,8 @@ const fieldData = {
   [field.CITIZENSHIP]: {
     type: "",
     label: "Гражданство",
-    list: "citizenships",
     required: true,
     field: field.CITIZENSHIP,
-    options: [],
   },
   //RUSSIAN
   [field.PASSPORT_SERIES]: {
@@ -147,6 +146,7 @@ const fieldData = {
     type: "radio",
     label: "Меняли ли фамилию или имя?",
     field: field.LAST_NAME_CHANGED,
+    required: true,
     options: [
       { value: "yes", text: "Да" },
       { value: "no", text: "Нет" },
