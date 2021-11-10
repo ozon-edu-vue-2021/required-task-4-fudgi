@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications />
     <Form />
   </div>
 </template>

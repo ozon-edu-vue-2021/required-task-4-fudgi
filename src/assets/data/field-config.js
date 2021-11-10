@@ -1,5 +1,13 @@
 import getFormatedCurrentDate from "@/utils/getFormatedCurrentDate";
+import citizenshipData from "@/assets/data/citizenships.json";
+import passportTypesData from "@/assets/data/passport-types.json";
 import * as regexp from "./regex";
+
+const citizenships = Array.from(
+  new Set(citizenshipData.map(({ nationality }) => nationality))
+);
+
+const passportTypes = passportTypesData.map(({ type }) => type);
 
 const field = {
   LAST_NAME: "lastName",
@@ -86,6 +94,7 @@ const fieldData = {
     label: "Гражданство",
     required: true,
     field: field.CITIZENSHIP,
+    options: citizenships,
   },
   //RUSSIAN
   [field.PASSPORT_SERIES]: {
@@ -131,7 +140,7 @@ const fieldData = {
     list: "countries",
     required: true,
     field: field.FOREIGN_COUNTRY_ORIGIN,
-    options: [],
+    options: citizenships,
   },
   [field.FOREIGN_PASSPORT_TYPE]: {
     type: "",
@@ -139,7 +148,7 @@ const fieldData = {
     list: "passportTypes",
     required: true,
     field: field.FOREIGN_PASSPORT_TYPE,
-    options: [],
+    options: passportTypes,
   },
   //ADDITIONAL
   [field.LAST_NAME_CHANGED]: {

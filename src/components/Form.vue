@@ -40,7 +40,6 @@
         <Selectable
           v-bind="fieldData[field.CITIZENSHIP]"
           v-model="formData[field.CITIZENSHIP]"
-          :options="citizenships"
         />
       </div>
 
@@ -81,12 +80,10 @@
           <Selectable
             v-bind="fieldData[field.FOREIGN_COUNTRY_ORIGIN]"
             v-model="formData[field.FOREIGN_COUNTRY_ORIGIN]"
-            :options="citizenships"
           />
           <Selectable
             v-bind="fieldData[field.FOREIGN_PASSPORT_TYPE]"
             v-model="formData[field.FOREIGN_PASSPORT_TYPE]"
-            :options="passportTypes"
           />
         </div>
       </div>
@@ -119,17 +116,13 @@
 import Inputable from "@/components/Inputable";
 import Checkable from "@/components/Checkable";
 import Selectable from "@/components/Selectable";
-import citizenshipData from "@/assets/data/citizenships.json";
-import passportTypesData from "@/assets/data/passport-types.json";
 import { field, fieldData, initFormData } from "@/assets/data/field-config.js";
+import {
+  FORM_ERROR,
+  FORM_SUCCESS,
+} from "@/assets/data/notification-messages.js";
 const CITIZENSHIP_RUSSIA = "Russia";
 const CHANGE_NAME_YES = "yes";
-
-const citizenships = Array.from(
-  new Set(citizenshipData.map(({ nationality }) => nationality))
-);
-
-const passportTypes = passportTypesData.map(({ type }) => type);
 
 export default {
   components: {
@@ -140,8 +133,6 @@ export default {
   data() {
     return {
       formData: initFormData,
-      citizenships,
-      passportTypes,
       fieldData,
       field,
       isValidForm: true,
@@ -151,9 +142,13 @@ export default {
     sendForm(event) {
       event.preventDefault();
 
-      if (!this.$refs.form.checkValidity()) this.isValidForm = false;
-      else this.isValidForm = true;
-      console.log(this.isValidForm);
+      if (!this.$refs.form.checkValidity()) {
+        this.isValidForm = false;
+        this.$notify(FORM_ERROR);
+      } else {
+        this.isValidForm = true;
+        this.$notify(FORM_SUCCESS);
+      }
 
       console.log(JSON.stringify(this.formData, null, 4));
     },
