@@ -141,14 +141,10 @@ export default {
   methods: {
     sendForm(event) {
       event.preventDefault();
+      this.isValidForm = this.$refs.form.checkValidity();
 
-      if (!this.$refs.form.checkValidity()) {
-        this.isValidForm = false;
-        this.$notify(FORM_ERROR);
-      } else {
-        this.isValidForm = true;
-        this.$notify(FORM_SUCCESS);
-      }
+      if (this.isValidForm) this.$notify(FORM_SUCCESS);
+      else this.$notify(FORM_ERROR);
 
       console.log(JSON.stringify(this.formData, null, 4));
     },
