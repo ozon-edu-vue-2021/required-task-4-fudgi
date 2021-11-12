@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications />
     <Form />
   </div>
 </template>
@@ -19,7 +20,6 @@ export default {
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
-  background-color: #fafafa;
   padding: 24px;
   box-sizing: border-box;
 }
@@ -27,7 +27,7 @@ export default {
 html,
 body,
 #app {
-  height: 100%;
+  background-color: #e5e5e5;
 }
 
 * {
